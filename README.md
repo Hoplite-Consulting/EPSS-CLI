@@ -8,6 +8,8 @@
 ```
 pip3 install -r requirements.txt
 ```
+
+### Run
 ```
 ./epss.py <input_file_name_here>
 ```
