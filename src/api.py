@@ -1,4 +1,3 @@
-from numpy import percentile
 import requests
 
 class cveData:
@@ -33,7 +32,7 @@ class epss:
             string += i + separator
         return string[:-1]
 
-    def get(self, cveList: str or list) -> list[cveData]:
+    def get(self, cveList: str or list) -> cveData or list[cveData]:
         if type(cveList) == list:
             cve = self._separateList(cveList, ",")
         else:
@@ -43,4 +42,6 @@ class epss:
         returnList = []
         for response in data:
             returnList.append(cveData(response[cveData.cve], response[cveData.epss], response[cveData.percentile], response[cveData.date]))
+        if len(returnList) == 1:
+            return returnList[0]
         return returnList
