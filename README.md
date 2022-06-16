@@ -6,7 +6,7 @@
 ### Use Instructions
 - Install requirements
 ```
-pip3 -r requirements.txt
+pip3 install -r requirements.txt
 ```
 
 Idk someone can add some stuff here
