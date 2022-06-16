@@ -6,8 +6,6 @@ from alive_progress import alive_bar
 import csv
 
 if __name__ == "__main__":
-    eps = epss()
-
     try:
         readFile = sys.argv[1]
     except IndexError:
@@ -17,6 +15,8 @@ if __name__ == "__main__":
         writeFile = sys.argv[2]
     except IndexError:
         writeFile = sys.argv[1].split(".")[0]+"_out.csv"
+
+    eps = epss(True)
 
     def getRows(file):
         rows = 0

@@ -1,4 +1,6 @@
+from tabnanny import verbose
 import requests
+import time
 
 class cveData:
 
@@ -23,7 +25,8 @@ class epss:
 
     URL = "https://api.first.org/data/v1/epss"
 
-    def __init__(self) -> None:
+    def __init__(self, verbose: bool = False) -> None:
+        self.V = verbose
         self.session = requests.session()
 
     def _separateList(self, strList: list, separator: str) -> str:
@@ -40,10 +43,16 @@ class epss:
                 return cveData(None, None, None, None)
             cve = cveList
         req = self.session.get(self.URL, params={"cve":cve})
+        # time.sleep(0.1) # Confirm if throttle is needed... Or find out if requests is async already...
         data = req.json()["data"] # Double check this shit
+        if self.V:
+            print(cve + ": " + str(data))
+        if data == []:
+            return cveData(None, None, None, None)
         returnList = []
         for response in data:
             returnList.append(cveData(response[cveData.cve], response[cveData.epss], response[cveData.percentile], response[cveData.date]))
         if len(returnList) == 1:
             return returnList[0]
-        return returnList
+        else:
+            return returnList
