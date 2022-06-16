@@ -36,6 +36,8 @@ class epss:
         if type(cveList) == list:
             cve = self._separateList(cveList, ",")
         else:
+            if cveList == "":
+                return cveData(None, None, None, None)
             cve = cveList
         req = self.session.get(self.URL, params={"cve":cve})
         data = req.json()["data"] # Double check this shit

@@ -18,6 +18,14 @@ if __name__ == "__main__":
     except IndexError:
         writeFile = sys.argv[1].split(".")[0]+"_out.csv"
 
+    def getRows(file):
+        rows = 0
+        with open(file, "r") as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                rows += 1
+        return rows
+
     with open(readFile, "r") as read, open(writeFile, "w", newline='') as write:
         reader = csv.DictReader(read)
         fields = reader.fieldnames
@@ -25,7 +33,7 @@ if __name__ == "__main__":
         fields.append(cveData.percentile)
         writer = csv.DictWriter(write, fields)
         writer.writeheader()
-        with alive_bar(len(list(reader))) as bar:
+        with alive_bar(getRows(readFile)) as bar:
             for row in reader:
                 cve = row["CVE"]
                 resp = eps.get(cve)
