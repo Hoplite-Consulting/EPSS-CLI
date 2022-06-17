@@ -51,7 +51,7 @@ if __name__ == "__main__":
         fields.append(cveData.percentile)
         writer = csv.DictWriter(write, fields)
         writer.writeheader()
-        with alive_bar(getRows(readFile)) as bar:
+        with alive_bar(total=getRows(readFile), title="Getting EPSS Data") as bar:
             for row in reader:
                 cve = row["CVE"]
                 resp = eps.get(cve)
