@@ -1,6 +1,4 @@
-from tabnanny import verbose
 import requests
-import time
 
 class cveData:
 
@@ -43,7 +41,6 @@ class epss:
                 return cveData(None, None, None, None)
             cve = cveList
         req = self.session.get(self.URL, params={"cve":cve})
-        # time.sleep(0.1) # Confirm if throttle is needed... Or find out if requests is async already...
         data = req.json()["data"] # Double check this shit
         if self.V:
             print(cve + ": " + str(data))

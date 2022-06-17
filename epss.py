@@ -2,6 +2,7 @@
 
 from src import *
 import sys
+import os.path as p
 from alive_progress import alive_bar
 import csv
 
@@ -15,6 +16,14 @@ if __name__ == "__main__":
         writeFile = sys.argv[2]
     except IndexError:
         writeFile = sys.argv[1].split(".")[0]+"_out.csv"
+    if (p.exists(writeFile)):
+            while True:
+                rm = input("Do you want to overwrite '" + writeFile + "'? [yes/no]: ")
+                if rm.lower() == "no":
+                    print("Terminating...")
+                    exit()
+                elif rm.lower() == "yes":
+                    break
 
     eps = epss(True)
 
