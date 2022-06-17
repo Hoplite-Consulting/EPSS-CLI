@@ -9,10 +9,10 @@ import argparse
 if __name__ == "__main__":
 
     # Args 
-    parser = argparse.ArgumentParser(description="./epss.py <input_file>")
-    parser.add_argument('readFile')
-    parser.add_argument('-w', '--writeFile')
-    parser.add_argument('-v', '--verbose', action='store_true')
+    parser = argparse.ArgumentParser(description="./epss.py <read_file>")
+    parser.add_argument('readFile', help="Read File Location")
+    parser.add_argument('-w', '--writeFile', metavar="", help="Write File Location")
+    parser.add_argument('-v', '--verbose', action='store_true', help="Verbose Output")
     args = parser.parse_args()
 
     # Set Read / Write Files
