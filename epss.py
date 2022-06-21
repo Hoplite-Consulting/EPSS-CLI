@@ -33,6 +33,7 @@ def main(args):
     readRows = []
     cveNumbers = []
 
+    # Read from CSV file
     with open(readFile, "r") as read:
         reader = csv.DictReader(read)
         newFields = reader.fieldnames
@@ -40,17 +41,17 @@ def main(args):
         newFields.append(cveData.percentile)
         for row in reader:
             readRows.append(row)
-    
     for row in readRows:
         cveNumbers.append(row["CVE"])
     
+    # Cleanup Data
     cveNumbers = utils.removeDuplicates(cveNumbers)
     cveNumbers.sort()
-
     chunks = utils.chunk(cveNumbers, chunkSize)
 
     cveResponse = []
 
+    # Progress Bar for Loop
     with alive_bar(total=len(cveNumbers), title="Getting EPSS Data...", ctrl_c=False) as bar:
         for chunk in chunks:
             resp = eps.get(chunk)
