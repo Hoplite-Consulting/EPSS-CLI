@@ -1,4 +1,4 @@
-# EPSS API
+# Python EPSS API
 
 EPSS API is an asynchronos python script that utilizes First.org's EPSS API to parse through CVE's and return the EPSS score and percentile appended to the last columns of a CSV file.  This was tested utilizing CSV output from Tenable IO and Nessus Professional.  
 
