@@ -3,7 +3,7 @@
 from src import *
 import os.path as p
 from alive_progress import alive_bar
-import csv
+from csv import DictReader
 import argparse
 
 def main(args):
@@ -35,7 +35,7 @@ def main(args):
 
     # Read from CSV file
     with open(readFile, "r") as read:
-        reader = csv.DictReader(read)
+        reader = DictReader(read)
         newFields = reader.fieldnames
         newFields.append(cveData.epss)
         newFields.append(cveData.percentile)
