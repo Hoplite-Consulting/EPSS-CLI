@@ -14,7 +14,7 @@ def splitStrList(strList: list, separator: str) -> str:
         string += i + separator
     return string[:-1]
 
-def writeFile(path: str, fields: list, originalData: list[dict], newData: list[cveData]):
+def writeFile(path: str, fields: list, originalData: list[dict], newData: list[cveData]) -> None:
     with open(path, "w") as file, alive_bar(total=len(originalData), title="Saving EPSS Data...", ctrl_c=False) as bar:
         writer = DictWriter(file, fields)
         writer.writeheader()
