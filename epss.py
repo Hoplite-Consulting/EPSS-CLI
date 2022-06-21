@@ -6,14 +6,7 @@ from alive_progress import alive_bar
 import csv
 import argparse
 
-if __name__ == "__main__":
-
-    # Args 
-    parser = argparse.ArgumentParser(description="./epss.py <read_file>")
-    parser.add_argument('readFile', help="Read File Location")
-    parser.add_argument('-w', '--writeFile', metavar="", help="Write File Location")
-    parser.add_argument('-v', '--verbose', action='store_true', help="Verbose Output")
-    args = parser.parse_args()
+def main(args):
 
     # Set Read / Write Files
     readFile = args.readFile
@@ -24,7 +17,7 @@ if __name__ == "__main__":
     
     # Check if Write File Exists / Ask to overwrite...
     if (p.exists(writeFile)):
-            while True:
+            while not args.force:
                 rm = input("Do you want to overwrite '" + writeFile + "'? [yes/no]: ")
                 if rm.lower() == "no":
                     print("Terminating...")
@@ -32,30 +25,48 @@ if __name__ == "__main__":
                 elif rm.lower() == "yes":
                     break
 
-    eps = epss(args.verbose)
+    eps = epss_v2(args.verbose)
 
-    # Strange work around to count number of rows in csv file to not cause a crash.
-    # Causes crash whe using len(list(reader)). Unkown as to why...
-    def getRows(file):
-        rows = 0
-        with open(file, "r") as f:
-            reader = csv.DictReader(f)
-            for row in reader:
-                rows += 1
-        return rows
+    chunkSize = 12
 
-    with open(readFile, "r") as read, open(writeFile, "w", newline='') as write:
+    readRows = []
+    cveNumbers = []
+
+    with open(readFile, "r") as read:
         reader = csv.DictReader(read)
-        fields = reader.fieldnames
-        fields.append(cveData.epss)
-        fields.append(cveData.percentile)
-        writer = csv.DictWriter(write, fields)
-        writer.writeheader()
-        with alive_bar(total=getRows(readFile), title="Getting EPSS Data") as bar:
-            for row in reader:
-                cve = row["CVE"]
-                resp = eps.get(cve)
-                row[resp.epss] = resp.EPSS
-                row[resp.percentile] = resp.PERCENTILE
-                writer.writerow(row)
-                bar()
+        newFields = reader.fieldnames
+        newFields.append(cveData.epss)
+        newFields.append(cveData.percentile)
+        for row in reader:
+            readRows.append(row)
+    
+    for row in readRows:
+        cveNumbers.append(row["CVE"])
+    
+    cveNumbers = utils.removeDuplicates(cveNumbers)
+    cveNumbers.sort()
+
+    chunks = utils.chunk(cveNumbers, chunkSize)
+
+    cveResponse = []
+
+    with alive_bar(total=len(cveNumbers), title="Getting EPSS Data...", ctrl_c=False) as bar:
+        for chunk in chunks:
+            resp = eps.get(chunk)
+            for r in resp:
+                cveResponse.append(r)
+            bar(len(chunk))
+    
+    utils.writeFile(writeFile, newFields, readRows, cveResponse)
+
+if __name__ == "__main__":
+
+    # Args 
+    parser = argparse.ArgumentParser(description="./epss.py <read_file>")
+    parser.add_argument('readFile', help="Read File Location")
+    parser.add_argument('-w', '--writeFile', metavar="", help="Write File Location")
+    parser.add_argument('-v', '--verbose', action='store_true', help="Verbose Output")
+    parser.add_argument('-f', '--force', action='store_true', help="Force Overwrite File")
+    args = parser.parse_args()
+
+    main(args)
