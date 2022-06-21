@@ -11,6 +11,8 @@ class epss:
 
     def _list(self, cveList: list) -> list[cveData]:
         returnList = []
+        if self.V:
+            print("API Requesting: " + str(cveList))
         req = self.session.get(self.URL, params={"cve":utils.splitStrList(cveList, ",")})
         data = req.json()["data"]
         for cve in data:
@@ -18,6 +20,8 @@ class epss:
         return returnList
 
     def _str(self, cveStr: str) -> cveData:
+        if self.V:
+            print("API Requesting: " + str(cveStr))
         req = self.session.get(self.URL, params={"cve":cveStr})
         cve = req.json()["data"][0]
         return cveData(cve[cveData.cve], cve[cveData.epss], cve[cveData.percentile], cve[cveData.date])

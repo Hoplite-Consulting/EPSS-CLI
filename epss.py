@@ -27,6 +27,7 @@ def main(args):
 
     eps = epss_v2(args.verbose)
 
+    # chunkSize = args.chunk ### Option for chunk size from arguments
     chunkSize = 12
 
     readRows = []
@@ -67,6 +68,7 @@ if __name__ == "__main__":
     parser.add_argument('-w', '--writeFile', metavar="", help="Write File Location")
     parser.add_argument('-v', '--verbose', action='store_true', help="Verbose Output")
     parser.add_argument('-f', '--force', action='store_true', help="Force Overwrite File")
+    # parser.add_argument('-c', '--chunk', metavar="12", nargs='?', const=12, type=int, help="Number of CVE's per API request")
     args = parser.parse_args()
 
     main(args)
