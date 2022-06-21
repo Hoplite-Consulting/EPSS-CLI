@@ -19,3 +19,8 @@ pip3 install -r requirements.txt
 OR
 ./epss.py <read_file>
 ```
+
+### Single CVE Lookup
+```
+./cve_epss.py <cve-20xx-xxxx>
+```
