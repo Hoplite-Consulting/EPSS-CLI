@@ -23,7 +23,11 @@ class epss:
         if self.V:
             print("API Requesting: " + str(cveStr))
         req = self.session.get(self.URL, params={"cve":cveStr})
-        cve = req.json()["data"][0]
+        data = req.json()["data"]
+        try:
+            cve = data[0]
+        except IndexError:
+            return cveData()
         return cveData(cve[cveData.cve], cve[cveData.epss], cve[cveData.percentile], cve[cveData.date])
 
     def get(self, cveList: str | list) -> cveData | list[cveData]:
