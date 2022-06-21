@@ -11,8 +11,8 @@ def main(args):
         bar()
     try:
         print(data.cve.upper() + ": " + data.CVE)
-        print(data.epss.upper() + ": " + str(float(data.EPSS)*100) + "%")
-        print(data.percentile.capitalize() + ": " + data.PERCENTILE)
+        print(data.epss.upper() + ": " + data.EPSS)
+        print(data.percentile.capitalize() + ": " + str(float(data.PERCENTILE)*100) + "%")
         print(data.date.capitalize() + ": " + data.DATE)
     except TypeError:
         print("No CVE Data Found")
