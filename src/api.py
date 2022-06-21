@@ -7,7 +7,7 @@ class cveData:
     percentile = "percentile"
     date = "date"
 
-    def __init__(self, cve: str, epss: float, percentile: float, date: str) -> None:
+    def __init__(self, cve: str = None, epss: float = None, percentile: float = None, date: str = None) -> None:
         self.CVE = cve
         self.EPSS = epss
         self.PERCENTILE = percentile

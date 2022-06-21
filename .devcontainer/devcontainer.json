@@ -9,6 +9,10 @@
 		"args": { "VARIANT": "ubuntu-22.04" }
 	},
 
+	"extensions": [
+		"ms-python.python"
+	],
+
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],
 
