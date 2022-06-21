@@ -23,5 +23,7 @@ OR
 ### Manual CVE Lookup
 Space separated for multiple CVE lookup.
 ```
+./cve_epss.py --help
+OR
 ./cve_epss.py <cve-20xx-xxxx> <cve-20xx-xxxx>
 ```
