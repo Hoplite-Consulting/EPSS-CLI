@@ -25,8 +25,8 @@ def writeFile(path: str, fields: list, originalData: list[dict], newData: list[c
                 # print(cve == new.CVE)
                 # print("\n")
                 if new.CVE == cve:
-                    row[cveData.epss] = new.epss
-                    row[cveData.percentile] = new.percentile
+                    row[cveData.epss] = new.EPSS
+                    row[cveData.percentile] = new.PERCENTILE
                     break
             bar()
             writer.writerow(row)
