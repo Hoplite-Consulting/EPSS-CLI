@@ -3,10 +3,10 @@
 from src import *
 from alive_progress import alive_it
 import argparse
+import os.path as p
 
 def main(args):
     bar = alive_it(args.cve[0], title="Getting EPSS Data...")
-    prev = ""
     for i in bar:
         eps = epss_v2(args.verbose)
         data = eps.get(i.upper())
@@ -19,8 +19,14 @@ def main(args):
             print(e)
             print(p)
             print(d)
+            if args.writeFile:
+                with open(args.writeFile, "a") as f:
+                    f.writelines([c+"\n", e+"\n", p+"\n", d+"\n", "--------------------\n"])
         except TypeError:
             print("No CVE Data Found")
+            if args.writeFile:
+                with open(args.writeFile, "a") as f:
+                    f.writelines(["No CVE Data Found\n", "--------------------\n"])
         print("--------------------")
 
 if __name__ == "__main__":
@@ -29,6 +35,20 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="./epss.py <cve>")
     parser.add_argument('cve', action='append', nargs='*', help="CVE Number(s)")
     parser.add_argument('-v', '--verbose', action='store_true', help="Verbose Output")
+    parser.add_argument('-w', '--writeFile', metavar="path" ,nargs="?", type=str, help="Path to Output File")
+    parser.add_argument('-f', '--force', action='store_true', help="Force Overwirte File")
     args = parser.parse_args()
+
+    if args.writeFile:
+        if (p.exists(args.writeFile)):
+                while not args.force:
+                    rm = input("Do you want to overwrite '" + args.writeFile + "'? [yes/no]: ")
+                    if rm.lower() == "no":
+                        print("Terminating...")
+                        exit()
+                    elif rm.lower() == "yes":
+                        break
+        with open(args.writeFile, "w") as f:
+            f.close()
 
     main(args)
