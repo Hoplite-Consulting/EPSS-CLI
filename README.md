@@ -20,7 +20,8 @@ OR
 ./epss.py <read_file>
 ```
 
-### Single CVE Lookup
+### Manual CVE Lookup
+Space separated for multiple CVE lookup.
 ```
-./cve_epss.py <cve-20xx-xxxx>
+./cve_epss.py <cve-20xx-xxxx> <cve-20xx-xxxx>
 ```
