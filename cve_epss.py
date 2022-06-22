@@ -8,7 +8,10 @@ import os.path as p
 def main(args):
     bar = alive_it(args.cve[0], title="Getting EPSS Data...")
     for i in bar:
-        eps = epss_v2(args.verbose)
+        if args.date and utils.checkDate(args.date):
+            eps = epss_v2(args.verbose, args.date)
+        else:
+            eps = epss_v2(args.verbose)
         data = eps.get(i.upper())
         try:
             c = data.cve.upper() + ": " + data.CVE
@@ -37,6 +40,7 @@ if __name__ == "__main__":
     parser.add_argument('-v', '--verbose', action='store_true', help="Verbose Output")
     parser.add_argument('-w', '--writeFile', metavar="path" ,nargs="?", type=str, help="Path to Output File")
     parser.add_argument('-f', '--force', action='store_true', help="Force Overwirte File")
+    parser.add_argument('-d', '--date', metavar="yyyy-mm-dd", help="Date for CVE lookup")
     args = parser.parse_args()
 
     if args.writeFile:
