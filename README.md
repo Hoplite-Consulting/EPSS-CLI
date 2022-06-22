@@ -11,7 +11,7 @@ Written by [Oliver Scotten](https://www.github.com/oliv10).
 ### Requirements
 - Python 3.10.4 or greater
 
-### Use Instructions
+### Usage
 - Install requirements
 ```
 pip3 install -r requirements.txt
