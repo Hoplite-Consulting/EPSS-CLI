@@ -17,7 +17,7 @@ Written by [Oliver Scotten](https://www.github.com/oliv10).
 pip3 install -r requirements.txt
 ```
 
-### Run
+### Parsing CSV Files
 ```
 ./epss.py --help
 OR
