@@ -10,7 +10,8 @@
 	},
 
 	"extensions": [
-		"ms-python.python"
+		"ms-python.python",
+		"wakatime.vscode-wakatime"
 	],
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
