@@ -30,3 +30,12 @@ def writeFile(path: str, fields: list, originalData: list[dict], newData: list[c
                     break
             bar()
             writer.writerow(row)
+
+def checkDate(date: str) -> bool:
+    splitDate = list(date)
+    if len(splitDate) > 10:
+        return False
+    elif splitDate[4] != splitDate[7]:
+        return False
+    else:
+        return True
