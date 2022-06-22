@@ -1,6 +1,6 @@
-# Python EPSS API
+# Python EPSS CLI
 
-The Python EPSS API is a python script that utilizes First.org's EPSS API to parse through CVE's within a CSV and return the EPSS scores and percentiles appended to the last columns of the file.  This was tested utilizing CSV output from Tenable.io and Nessus Professional.
+The Python EPSS CLI is a python script that utilizes First.org's EPSS API to parse through CVE's within a CSV and return the EPSS scores and percentiles appended to the last columns of the file.  This was tested utilizing CSV output from Tenable.io and Nessus Professional.
 
 The **epss.py** script will read a CSV file, identify the CVE's within, and append the corresponding EPSS score and percentile to the last columns in the CSV file utilizing the [EPSS API](https://api.first.org/data/v1/epss).
 
