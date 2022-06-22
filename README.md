@@ -18,6 +18,7 @@ pip3 install -r requirements.txt
 ```
 
 ### Reading CSV Files
+The script will key on files with the column "CVE" and append the corresponding EPSS and percentile to the last two columns withing the CSV file.
 ```
 ./epss.py --help
 OR
