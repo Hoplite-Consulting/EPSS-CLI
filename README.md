@@ -27,3 +27,8 @@ Space separated for multiple CVE lookup.
 OR
 ./cve_epss.py <cve-20xx-xxxx> <cve-20xx-xxxx>
 ```
+
+### Manual CVE & Date Lookup
+```
+./cve-epss.py <cve-2022-xxxx> --date <yyyy-mm-dd>
+```
