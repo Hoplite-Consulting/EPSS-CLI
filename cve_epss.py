@@ -34,8 +34,10 @@ def main(args):
 
 if __name__ == "__main__":
 
+    __version__ = "2.4.1"
+
     # Args 
-    parser = argparse.ArgumentParser(description="./epss.py <cve>")
+    parser = argparse.ArgumentParser(description=f"CVE EPSS CLI Version {__version__}")
     parser.add_argument('cve', action='append', nargs='*', help="CVE Number(s)")
     parser.add_argument('-v', '--verbose', action='store_true', help="Verbose Output")
     parser.add_argument('-w', '--writeFile', metavar="path" ,nargs="?", type=str, help="Path to Output File")

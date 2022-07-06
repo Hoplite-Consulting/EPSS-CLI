@@ -63,8 +63,10 @@ def main(args):
 
 if __name__ == "__main__":
 
+    __version__ = "2.4.1"
+
     # Args 
-    parser = argparse.ArgumentParser(description="./epss.py <read_file>")
+    parser = argparse.ArgumentParser(description=f"EPSS CLI Version {__version__}")
     parser.add_argument('readFile', help="Read File Location")
     parser.add_argument('-w', '--writeFile', metavar="", help="Write File Location")
     parser.add_argument('-v', '--verbose', action='store_true', help="Verbose Output")
