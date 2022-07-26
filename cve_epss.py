@@ -1,4 +1,4 @@
-#!/bin/python3
+#!/usr/bin/python3
 
 from src import *
 from alive_progress import alive_it
