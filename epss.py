@@ -1,4 +1,4 @@
-#!/bin/python3
+#!/usr/bin/python3
 
 from src import *
 import os.path as p
